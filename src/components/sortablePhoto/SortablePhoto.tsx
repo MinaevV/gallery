@@ -5,7 +5,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { Photo } from '../photo/Photo';
 
 export const SortablePhoto = (props: any) => {
-  const sortable = useSortable({ id: props.url });
+  const sortable = useSortable({ id: props.id });
   const {
     attributes,
     listeners,
@@ -24,9 +24,9 @@ export const SortablePhoto = (props: any) => {
     <Photo
       ref={setNodeRef}
       style={style}
-      {...props}
       {...attributes}
       {...listeners}
+      {...props}
     />
   );
 };

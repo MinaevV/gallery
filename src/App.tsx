@@ -97,7 +97,7 @@ const photos = [
   },
 ];
 
-const UploadGallery = (): any => {
+function Gallery(): React.ReactElement {
   const [items, setItems] = useState(photos);
   const [activeId, setActiveId] = useState(-1);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
@@ -113,14 +113,10 @@ const UploadGallery = (): any => {
       <SortableContext items={items} strategy={rectSortingStrategy}>
         <Grid columns={4}>
           {items.map((item) => (
-            <SortablePhoto key={item.id} index={item.id} src={item.src} />
+            <SortablePhoto key={item.id} id={item.id} src={item.src} />
           ))}
         </Grid>
       </SortableContext>
-
-      <DragOverlay>
-        {activeId ? <Photo index={/* items.indexOf(activeId) */ 0} /> : null}
-      </DragOverlay>
     </DndContext>
   );
 
@@ -139,13 +135,12 @@ const UploadGallery = (): any => {
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-
-    setActiveId(-1);
+    return setActiveId(-1);
   }
 
   function handleDragCancel() {
     setActiveId(-1);
   }
-};
+}
 
-export default UploadGallery;
+export default Gallery;
