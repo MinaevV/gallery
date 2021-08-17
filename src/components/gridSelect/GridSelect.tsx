@@ -4,14 +4,14 @@ interface IProps {
   setGridSize: Function;
 }
 
-function GridSelect(props: IProps): JSX.Element {
+function GridSelect(props: IProps): React.ReactElement {
   return (
     <select
       className="selector"
       onChange={(e) =>
-        props.setGridSize((prevSize: number) => {
-          prevSize = parseInt(e.target.value);
-          return prevSize;
+        props.setGridSize((prevGridSize: number) => {
+          prevGridSize = parseInt(e.target.value);
+          return prevGridSize;
         })
       }
     >
