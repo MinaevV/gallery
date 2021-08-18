@@ -8,6 +8,7 @@ import {
   DragOverlay,
   useSensor,
   useSensors,
+  DragMoveEvent,
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -19,6 +20,12 @@ import { Grid } from './components/grid/Grid';
 import { SortablePhoto } from './components/sortablePhoto/SortablePhoto';
 import { Photo } from './components/photo/Photo';
 import GridSelect from './components/grid/GridSelect';
+
+export interface IItem {
+  id: string;
+  src: string;
+  map?: Function;
+}
 
 const photosDefaul = [
   {
@@ -127,12 +134,6 @@ function Gallery(): React.ReactElement {
     localStorage.setItem('gridSize', JSON.stringify(gridSize));
   }, [gridSize]);
 
-  interface IItem {
-    id: string;
-    src: string;
-    map?: Function;
-  }
-
   return (
     <div className="App">
       <h1>Gallery</h1>
@@ -171,21 +172,21 @@ function Gallery(): React.ReactElement {
     </div>
   );
 
-  function handleDragStart(event: any) {
-    setActiveId(event.active.id);
+  function handleDragStart(event: DragMoveEvent) {
+    setActiveId(+event.active.id);
   }
 
-  function handleDragEnd(event: any) {
+  function handleDragEnd(event: DragMoveEvent) {
     const { active, over } = event;
 
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setItems((items: IItem[]) => {
         const oldIndex = items
           .map((item: IItem) => item.id)
           .indexOf(`${active.id}`);
         const newIndex = items
           .map((item: IItem) => item.id)
-          .indexOf(`${over.id}`);
+          .indexOf(`${over?.id}`);
 
         return arrayMove(items, oldIndex, newIndex);
       });

@@ -1,6 +1,11 @@
 import React from 'react';
 
-export function Grid({ children, columns }: any) {
+type TGrid = {
+  children: [];
+  columns: number;
+};
+
+export function Grid({ children, columns }: TGrid) {
   return (
     <ul
       style={{
